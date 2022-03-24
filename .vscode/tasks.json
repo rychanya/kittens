@@ -1,0 +1,22 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Pretty",
+            "type": "shell",
+            "command": "poetry run isort .; poetry run black .; poetry run flake8 --ignore E501,W503 ."
+        },
+        {
+            "label": "Test",
+            "type": "shell",
+            "command": "poetry run pytest"
+        },
+        {
+            "label": "Run",
+            "type": "shell",
+            "command": "poetry run uvicorn kittens.main:app --reload"
+        }
+    ]
+}

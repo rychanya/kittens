@@ -1,0 +1,9 @@
+{
+    "python.formatting.provider": "black",
+    "python.linting.pylintEnabled": true,
+    "python.linting.enabled": true,
+    "cSpell.words": [
+        "fastapi",
+        "uvicorn"
+    ]
+}
