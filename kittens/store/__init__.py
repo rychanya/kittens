@@ -5,7 +5,14 @@ from uuid import uuid4
 from motor.motor_asyncio import AsyncIOMotorClient, AsyncIOMotorCollection
 from pydantic import UUID4  # pylint: disable=no-name-in-module
 
-from kittens.models.qa.models import Answer, AnswerDB, Question, QuestionDB
+from kittens.models.qa.models import (
+    AddDataDTO,
+    AddDataDTOResult,
+    Answer,
+    AnswerDB,
+    Question,
+    QuestionDB,
+)
 from kittens.store.settings import StoreSettings
 
 
@@ -129,3 +136,18 @@ class Store:
             ),
             True,
         )
+
+    async def import_answer(
+        self, data: AddDataDTO, author_id: UUID4, session=None
+    ) -> Tuple[AddDataDTOResult, bool]:
+        """Import answer"""
+        question, _ = await self.get_or_create_questions(
+            question=data.question, author_id=author_id, session=session
+        )
+        answer, is_new = await self.get_or_create_answer(
+            answer=data.answer,
+            question_id=question.question_id,
+            author_id=author_id,
+            session=session,
+        )
+        return (AddDataDTOResult(question=question, answer=answer), is_new)
