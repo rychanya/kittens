@@ -43,3 +43,17 @@ class QuestionDB(Question):
 
     question_id: UUID4
     author: UUID4
+
+
+class AddDataDTO(BaseModel):
+    """Add qa dto model"""
+
+    question: Question
+    answer: Answer
+
+
+class AddDataDTOResult(BaseModel):
+    """Add data result dto model"""
+
+    question: QuestionDB
+    answer: AnswerDB
